@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Source</title>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"
+/>
+<style>
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 11px;
+    background: #f4f4f5;
+    padding: 12px;
+  }
+</style>
+<h1 id="title">Source</h1>
+<nav><a id="back" href="./">← back to the page</a></nav>
+<pre><code id="src" class="language-markup">loading…</code></pre>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script>
+  const page = new URLSearchParams(location.search).get('page');
+  const src = document.getElementById('src');
+  if (/^[\w-]+\.html$/.test(page)) {
+    document.getElementById('title').textContent = page;
+    document.getElementById('back').href = page;
+    fetch(page)
+      .then((r) => r.text())
+      .then((t) => {
+        src.textContent = t;
+        Prism.highlightElement(src);
+      });
+  } else {
+    src.textContent = 'unknown page';
+  }
+</script>

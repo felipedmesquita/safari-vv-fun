@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, user-scalable=0"
+/>
+<title>4. The fix</title>
+<style>
+  body {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  input {
+    position: absolute;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+  }
+  .popover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #fff;
+    padding: 8px;
+  }
+  #raw {
+    background: #d72c0d;
+  }
+  #vv {
+    background: #108043;
+  }
+</style>
+<h1>4. The fix</h1>
+<nav>
+  <a href="3-popover.html">← 3</a> ·
+  <a href="source.html?page=4-fix.html">view source</a>
+</nav>
+<input placeholder="tap me" />
+<div class="popover" id="raw">raw rect</div>
+<div class="popover" id="vv">+ vv offset</div>
+<script>
+  const input = document.querySelector('input');
+  const raw = document.getElementById('raw');
+  const vv = document.getElementById('vv');
+  (function place() {
+    const r = input.getBoundingClientRect();
+    const {offsetTop} = visualViewport;
+    raw.style.transform = `translate(${r.left}px, ${r.bottom + 4}px)`;
+    vv.style.transform = `translate(${r.left + raw.offsetWidth + 4}px, ${r.bottom + 4 + offsetTop}px)`;
+    requestAnimationFrame(place);
+  })();
+</script>

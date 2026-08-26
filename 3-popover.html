@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, user-scalable=0"
+/>
+<title>3. The popover bug</title>
+<style>
+  body {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  input {
+    position: absolute;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+  }
+  #popover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #d72c0d;
+    color: #fff;
+    padding: 8px;
+  }
+</style>
+<h1>3. The popover bug</h1>
+<nav>
+  <a href="2-locked.html">← 2</a> ·
+  <a href="source.html?page=3-popover.html">view source</a> ·
+  <a href="4-fix.html">next: the fix →</a>
+</nav>
+<input placeholder="tap me" />
+<div id="popover"></div>
+<script>
+  const input = document.querySelector('input');
+  const popover = document.getElementById('popover');
+  (function place() {
+    const r = input.getBoundingClientRect();
+    popover.style.transform = `translate(${r.left}px, ${r.bottom + 4}px)`;
+    popover.textContent = `visualViewport.offsetTop = ${visualViewport.offsetTop.toFixed(1)}`;
+    requestAnimationFrame(place);
+  })();
+</script>
