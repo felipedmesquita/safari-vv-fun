@@ -17,3 +17,6 @@ coordinate-space bug ([WebKit bug 257375](https://bugs.webkit.org/show_bug.cgi?i
    exclude `visualViewport.offsetTop`.
 4. **[The fix](4-fix.html)** — a second popover that adds
    `visualViewport.offsetTop` stays glued to the anchor.
+5. **[Measure the fixed origin](5-fixed-origin.html)** — an empty fixed element
+   at `top: 0; left: 0` reveals the popover's coordinate origin. Subtract its
+   rect from the anchor's rect without browser detection or viewport offsets.

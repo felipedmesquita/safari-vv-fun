@@ -4,7 +4,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1, user-scalable=0"
 />
-<title>4. The fix</title>
+<title>5. Measure the fixed origin</title>
 <style>
   body {
     position: fixed;
@@ -17,38 +17,42 @@
     left: 16px;
     right: 16px;
   }
-  .popover {
+  .popover,
+  #origin {
     position: fixed;
     top: 0;
     left: 0;
+  }
+  .popover {
     color: #fff;
     padding: 8px;
   }
   #raw {
     background: #d72c0d;
   }
-  #vv {
+  #corrected {
     background: #108043;
   }
 </style>
-<h1>4. The fix</h1>
+<h1>5. Measure the fixed origin</h1>
 <nav>
-  <a href="3-popover.html">← 3</a> ·
-  <a href="source.html?page=4-fix.html">view source</a> ·
-  <a href="5-fixed-origin.html">next: measured fixed origin →</a>
+  <a href="4-fix.html">← 4</a> ·
+  <a href="source.html?page=5-fixed-origin.html">view source</a>
 </nav>
 <input placeholder="tap me" />
+<div id="origin" aria-hidden="true"></div>
 <div class="popover" id="raw">raw rect</div>
-<div class="popover" id="vv">+ vv offset</div>
+<div class="popover" id="corrected">− fixed origin</div>
 <script>
   const input = document.querySelector('input');
+  const fixedOrigin = document.getElementById('origin');
   const raw = document.getElementById('raw');
-  const vv = document.getElementById('vv');
+  const corrected = document.getElementById('corrected');
   (function place() {
     const r = input.getBoundingClientRect();
-    const {offsetTop} = visualViewport;
+    const origin = fixedOrigin.getBoundingClientRect();
     raw.style.transform = `translate(${r.left}px, ${r.bottom + 4}px)`;
-    vv.style.transform = `translate(${r.left + raw.offsetWidth + 4}px, ${r.bottom + 4 + offsetTop}px)`;
+    corrected.style.transform = `translate(${r.left - origin.left + raw.offsetWidth + 4}px, ${r.bottom - origin.top + 4}px)`;
     requestAnimationFrame(place);
   })();
 </script>
